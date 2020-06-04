@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>The Men in Red</title>
+        <meta charset="utf-8">
+        <meta name="description" content="The Men in Red">
+        <meta name="keywords" content="Liverpool, personal, website">
+        <meta name="author" content="Jake Zammit">
+        <link rel="stylesheet" type="text/css" href="css/myStyle.css">
+        <link rel="stylesheet" type="text/css" href="jquery/gmaps.js">
+        <link href="css/style.css" type="text/css" rel="stylesheet" />
+	    <link href="css/media.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <img src="images/Liverpool%20Logo.png" alt= "Liverpool Logo">
+            <h1>Contact Us</h1>
+            <h2>A Liverpool F.C fan page for supporters</h2>
+        </header>
+         <!-- Responsive Horizontal Sliding Menu -->
+
+            <div class="menu">
+                <span></span>
+            </div>
+
+            <!-- End -->
+
+            <!-- Navigationbar -->
+
+            <nav class="navbar-menu">
+              <ul class="menu-listing">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutUs.html">About Us</a></li>
+                <li><a href="multimedia.html">Multimedia</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+              </ul>
+            </nav>
+
+            <!-- jQuery cdn -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="jquery/script.js"></script>
+            <nav>
+            <ul>
+                <li><a href="index.html" title="Home">Home</a></li>
+                <li><a href="aboutUs.html" title="About Us">About Us</a></li>
+                <li><a href="multimedia.html" title="Multimedia">Multimedia</a></li>
+                <li><a href="contactUs.html" title="Contact Us" class="selected">Contact Us</a></li>
+            </ul>
+        </nav>
+        <main id="contactUs">
+            <section>
+                <article>
+                    <form>
+                        <label for="title">Title:</label>
+                        <input type="radio" id="title" name="title" value="Mr">&nbsp;Mr
+                        <input type="radio" id="title" name="title" value="Mrs">&nbsp;Mrs
+                        <input type="radio" id="title" name="title" value="Other">&nbsp;Other<br><br>
+                        <input type="checkbox" id="supporter" name="supporter" value="supporter"> &nbsp;<label for="Supporter">Liverpool Supporter?</label><br><br>
+                        <label for="fname">Name:</label><br>
+                        <input type="text" id="fname" name="fname"><br><br>
+                        <label for="lname">Surname:</label><br>
+                        <input type="text" id="lname" name="lname"><br><br>
+                        <label for="email">Email:</label><br>
+                        <input type="text" id="email" name="email"><br><br>
+                        <label for="comments">Comments:</label><br>
+                        <textarea id="comments" name="comments" rows="5">Type your Comments here...</textarea><br><br>
+                        <label for="country">Country:</label><br>
+                        <select id="country" name="country">
+                            <option>England</option>
+                            <option>Malta</option>
+                            <option>Scotland</option>
+                            <option>Wales</option>
+                            <option>Ireland</option>
+                            <option>Other</option>
+                        </select><br><br>
+                        <div id="Message">
+                            <p><em id="displayMessage">Please fill in the form and click on 'Submit'. Confirmation/Validation message will be shown here.</em></p>
+                        </div>
+                        <button id="submit" type="button" name="submit" onclick="validateEmail()">Submit</button>
+                        <input type="reset" id="reset" name="reset" value="Reset"><br>
+                        <div class="map">
+                            <div id="map"></div>
+                        </div>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script src="http://maps.google.com/maps/api/js"></script>
+                        <script src="jquery/gmaps.js"></script>
+                        <script>
+                            var map = new GMaps({
+                                el: '#map',
+                                lat: 35.826721,
+                                lng: 14.527570
+                            });
+                        </script>
+                        <script>
+                            function validateEmail(email)
+                            {
+                                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+                                    return true;
+                                else
+                                    return false;
+                            }
+                            function checkInput(){
+                                var firstNameElement = document.getElementById("fname");
+                                var lastNameElement = document.getElementById("lname");
+                                var emailElement = document.getElementById("email");
+                                var commentsElement = document.getElementById("comments");
+
+                                var displayMessage = document.getElementById("displayMessage");
+
+                                //input
+                                var fname = firstNameElement.value;
+                                var lname = lastNameElement.value;
+                                var email = emailElement.value;
+                                var comments = commentsElement.value;
+
+                                //are they empty?
+                                var emptyFields = true;
+                                if(fname != ""){
+                                    if(lname != ""){
+                                        if(email != ""){
+                                            if(comments != ""){
+                                                emptyFields = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                //empty
+                                if(emptyFields === true){
+                                    displayMessage.innerText = "Please fill in Name,Surname,Comments and Email!";
+                                }
+
+                                //full (invalid)
+                                if(emptyFields === false && validateEmail(email)===false){
+                                    displayMessage.innerText = "Inputted Email format is invalid, Please try again";
+                                }
+
+                                //full (valid)
+                                if(emptyFields === false && validateEmail(email)===true){
+                                    displayMessage.innerText = "Thanks for sending in your feedback!!";
+                                    firstNameElement.value = "";
+                                    lastNameElement.value = "";
+                                    emailElement.value = "";
+                                    commentsElement.value = "";
+                                }
+                            }
+
+                            submit.addEventListener("click", checkInput);
+                        </script>
+                    </form>
+                </article>
+            </section>
+        </main>
+        <footer>
+            <figure>
+                <a href="https://www.facebook.com/LiverpoolFC" title="Facebook" target="_blank"><img src="images/fb.jpg" alt="Facebook"></a>
+            </figure>
+            <figure>
+                <a href="https://twitter.com/LFC" title="Twitter" target="_blank"><img src="images/twitter.jpg" alt="Twitter"></a>
+            </figure>
+            <figure>
+                <a href="https://www.youtube.com/user/LiverpoolFC" title="YouTube" target="_blank"><img src="images/youTube.jpg" alt="YouTube"></a>
+            </figure>
+            <p>Jake Zammit &copy; 2020</p>
+        </footer>
+    </body>
+</html>
